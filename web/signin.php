@@ -17,6 +17,8 @@ include "header.php";
                 <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Error CSRF</b>
             <?php } else if(@$_GET['status'] == 'success'){ ?>
                 <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Signup Success</b>
+            <?php } else if(@$_GET['status'] == 'failed-blocked'){ ?>
+                <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Akun terblokir selama 30 menit</b>
             <?php } ?>
             <!--  -->
 

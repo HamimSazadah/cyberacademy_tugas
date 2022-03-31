@@ -4,9 +4,11 @@ include "header.php";
 @session_start();
 
 $id = @$_SESSION['id'];
+$tipe = @$_SESSION['tipe'];
 
-if (!$id) {
+if (!$id || $tipe != 'admin') {
     header('location:' . $host . 'adminxyz.php');
+    exit;
 }
 ?>
 <div class="login-clean">

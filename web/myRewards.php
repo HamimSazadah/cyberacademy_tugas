@@ -1,5 +1,11 @@
 <?php
 include "header.php";
+
+$tipe = @$_SESSION['tipe'];
+if ($tipe != 'users') {
+    header('location:' . $host . 'signin.php');
+    exit;
+}
 ?>
 
     <div class="booking-body">
