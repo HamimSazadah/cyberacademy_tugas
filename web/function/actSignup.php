@@ -7,6 +7,22 @@ if (!empty($_POST) && $_SESSION['csrf'] == $_POST['csrf']) {
     $email    = sanitize(@$_POST['email']);
     $password  = sha1(sanitize(@$_POST['password']) . $email . getenv('SALT'));
 
+    if (isset($_POST['g-recaptcha-response'])) {
+        $captcha=$_POST['g-recaptcha-response'];
+    }
+    if (!$captcha) {
+        header('Location: '.$host.'signup.php?status=failed-captcha' );
+        exit;
+    }
+    $secretKey = getenv('RECAPTCHA_SECRET_KEY');
+    $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha);
+    $response = file_get_contents($url);
+    $responseKeys = json_decode($response,true);
+    if(!$responseKeys["success"]) {
+        header('Location: '.$host.'signin.php?status=failed-captcha' );
+        exit;
+    }
+
     // insert to database
     $sql = "INSERT INTO users (email, password) VALUES ('$email', '$password')";
 
