@@ -28,6 +28,7 @@ include "function/getFeedback.php";
                         <p class="booking-font-field-title">Feedback</p>
                         <p class="booking-font-field"><?php echo $row['feedback']; ?></p>
                     </div>
+                     
                     
                 </div>
         <?php } ?>
