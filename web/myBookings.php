@@ -24,14 +24,14 @@ include "function/getMyTickets.php";
                 </div>
                 <div class="col-md-2">
                     <p class="booking-font-field-title">ID Booking</p>
-                    <p class="booking-font-field"><?php echo $row['id_booking'];?></p>
+                    <p class="booking-font-field"><?php echo htmlspecialchars($row['id_booking'],ENT_QUOTES);?></p>
                 </div>
                 <div class="col-md-6">
                     <p class="booking-font-field-title">Destination</p>
-                    <p class="booking-font-field"><?php echo $row['from'];?> - <?php echo $row['to'];?></p>
+                    <p class="booking-font-field"><?php echo htmlspecialchars($row['from'],ENT_QUOTES);?> - <?php echo htmlspecialchars($row['to'],ENT_QUOTES);?></p>
                 </div>
                 <div class="col-md-3 p-0 m-0 text-right">
-                    <a href="<?php echo $host;?>myBookingDetail.php?IDBOOKING=<?php echo $row['id_booking'];?>&IDTICKET=<?php echo $row['id'];?>">
+                    <a href="<?php echo $host;?>myBookingDetail.php?IDBOOKING=<?php echo htmlspecialchars($row['id_booking'],ENT_QUOTES);?>&IDTICKET=<?php echo htmlspecialchars($row['id'],ENT_QUOTES);?>">
                         <button class="btn btn-booking-primary p-0 m-0" type="submit">Detail</button>
                     </a>
                 </div>
