@@ -1,4 +1,7 @@
-<?php include "conn.php"; ?>
+<?php 
+session_start();
+include "conn.php";
+?>
 
 <!DOCTYPE html>
 <html>
@@ -34,7 +37,8 @@
             <div class="container" id="nav-menu"><a class="navbar-brand" href="<?php echo $host; ?>">Karcis</a>
 
                 <?php
-                @session_start();
+                
+                $_SESSION['csrf'] = isset($_SESSION['csrf'])?$_SESSION['csrf']:bin2hex(random_bytes(35));
                 $id = @$_SESSION['id'];
                 if ($id) { ?>
                     <a class="login" style="float:left">
