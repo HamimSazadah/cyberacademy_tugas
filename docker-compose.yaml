@@ -12,6 +12,14 @@ services:
       MYSQL_DATABASE: tiket
     ports:
       - 3309:3306
+  mariadb:
+    image: mariadb:10.5
+    environment:
+      MYSQL_ROOT_PASSWORD: leomessi
+    ports:
+      - 3307:3306
+    volumes:
+      - ./mariadb:/var/lib/mysql
   web:
     image: telkomindonesia/debian-buster:php-7.4-apm-apache-novol
     container_name: web
@@ -22,6 +30,8 @@ services:
       DB_USER: user_tiket
       DB_PASS: Tiket@12ed
       DATABASE: tiket
+      RECAPTCHA_SITE_KEY: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+      RECAPTCHA_SECRET_KEY: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
       SALT: e545d2da-97eb-4f1a-a641-5a9ec4d19861
       HOST: http://localhost:8080/
     ports:
