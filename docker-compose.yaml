@@ -9,6 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: password1
       MYSQL_USER: user_tiket
       MYSQL_PASSWORD: Tiket@12ed
+      MYSQL_DATABASE: tiket
     ports:
       - 3309:3306
   mariadb:
@@ -31,6 +32,7 @@ services:
       DATABASE: tiket
       RECAPTCHA_SITE_KEY: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
       RECAPTCHA_SECRET_KEY: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+      SALT: e545d2da-97eb-4f1a-a641-5a9ec4d19861
       HOST: http://localhost:8080/
     ports:
       - 8080:8080
