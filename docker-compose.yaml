@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password1
+      MYSQL_USER: user_tiket
+      MYSQL_PASSWORD: Tiket@12ed
+    ports:
+      - 3309:3306
+  web:
+    image: telkomindonesia/debian-buster:php-7.4-apm-apache-novol
+    container_name: web
+    volumes:
+      - ./web:/var/www/html
+    environment:
+      DB_HOST: mysql
+      DB_USER: user_tiket
+      DB_PASS: Tiket@12ed
+      DATABASE: tiket
+      HOST: http://localhost:8080/
+    ports:
+      - 8080:8080
