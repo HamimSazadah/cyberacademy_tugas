@@ -1,0 +1,3 @@
+docker-compose.yaml
+mysql/
+mysql/ib_logfile0
