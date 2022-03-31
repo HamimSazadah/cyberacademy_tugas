@@ -1,6 +1,12 @@
 <?php
 include "header.php";
 include "function/getFeedback.php";
+
+$tipe = @$_SESSION['tipe'];
+if ($tipe != 'users') {
+    header('location:' . $host . 'signin.php');
+    exit;
+}
 ?>
 
 <div class="booking-body">
