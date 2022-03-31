@@ -6,16 +6,14 @@ include "header.php";
 
 <div class="login-clean">
 <form method="post" action="<?php echo $host;?>function/actSigninAdmin.php">
-             <!-- if signup failed -->
-             <?php
-                if(@$_GET['status'] == 'failed'){
-            ?>
+            <!-- if signup failed -->
+            <?php if(@$_GET['status'] == 'failed'){ ?>
                 <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Email dan Password tidak sesuai</b>
+            <?php } else if(@$_GET['status'] == 'failed-captcha'){ ?>
+                <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Captcha tidak sesuai</b>
+            <?php } else if(@$_GET['status'] == 'csrf'){ ?>
+                <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Error CSRF</b>
             <?php } else if(@$_GET['status'] == 'success'){ ?>
-                <?php } else if(@$_GET['status'] == 'failed-captcha'){ ?>
-            <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Captcha tidak sesuai</b>
-                <?php } else if(@$_GET['status'] == 'csrf'){ ?>
-            <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Error CSRF</b>
                 <b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Signup Success</b>
             <?php } ?>
             <!--  -->
