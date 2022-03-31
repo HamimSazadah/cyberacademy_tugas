@@ -1,5 +1,7 @@
 <?php
 include "db.php";
+require_once 'vendor/autoload.php';
+use Predis\Client;
 $conn = mysqli_connect($db_host, $db_username, $db_password, $db_name);
 
 // Check connection.

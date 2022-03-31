@@ -1,7 +1,14 @@
 <?php
+
+use Predis\Client;
+
 include "../conn.php";
+include "FloodDetection.php";
 
 @session_start();
+
+$flood = new FloodDetection();
+$flood->check();
 
 $id = @$_SESSION['id'];
 $fullname = htmlspecialchars(@$_POST['fullname'],ENT_QUOTES);
