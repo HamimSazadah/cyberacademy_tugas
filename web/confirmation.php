@@ -1,7 +1,7 @@
 <?php
 include "header.php";
 
-$hash = @$_GET['hash'];
+$hash = sanitize(@$_GET['hash']);
 
 $reset_password = "SELECT link FROM forgot_password WHERE hash = '$hash'";
 
@@ -16,7 +16,7 @@ $r_reset_password = mysqli_fetch_row($reset_password_result);
             <h2 class="sr-only">Reset Password</h2>
 
             <div class="form-group">
-                <a href="http://<?php echo $r_reset_password[0]; ?>">
+                <a href="<?=$r_reset_password[0]; ?>">
                     <button class="btn btn-primary btn-block" type="submit">Reset Password</button>
                 </a>
             </div>
