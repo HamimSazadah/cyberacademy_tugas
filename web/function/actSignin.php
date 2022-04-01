@@ -3,9 +3,20 @@
     include "../conn.php";
     include "security.php";
 
-    if (!empty($_POST) && $_SESSION['csrf'] == $_POST['csrf']) { 
+    if (!empty($_POST) && $_SESSION['csrf'] == $_POST['csrf']) {
         $email = sanitize(@$_POST['email']);
         $password = sha1(sanitize(@$_POST['password']) . $email . getenv('SALT'));
+
+        try {
+            $failAttempt = $redis->get('LOGIN-FAIL-ATTEMPT:'.$email);
+            if ($failAttempt >= 5) {
+                header('Location: '.$host.'signin.php?status=failed-blocked');
+                exit;
+            }
+        } catch (Exception $e) {
+            echo "Redis get failed: ".$e;
+            exit;
+        }
 
         if (isset($_POST['g-recaptcha-response'])) {
             $captcha=$_POST['g-recaptcha-response'];
@@ -38,6 +49,13 @@
                 header('Location: '.$host.'profile.php');
             }
         } else {
+            try {
+                $redis->set('LOGIN-FAIL-ATTEMPT:'.$email, $failAttempt+1, 'EX', 60*30);
+            } catch (Exception $e) {
+                echo "Redis set failed: ".$e;
+                exit;
+            }
+            
             header('Location: '.$host.'signin.php?status=failed' );
         }
         $conn->close();

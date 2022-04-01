@@ -1,3 +1,4 @@
 mysql/*
 mariadb/*
 redis/*
+web/files/*

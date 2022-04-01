@@ -1,8 +1,8 @@
 <?php
 include "header.php";
 
-$id_booking = @$_GET['IDBOOKING'];
-$id_ticket = @$_GET['IDTICKET'];
+$id_booking = filter_var(@$_GET['IDBOOKING'],FILTER_SANITIZE_NUMBER_INT);
+$id_ticket = filter_var(@$_GET['IDTICKET'],FILTER_SANITIZE_NUMBER_INT);
 
 @session_start();
     
@@ -12,11 +12,19 @@ if(!$id){
     header('location:'.$host.'signin.php');
 }
 
-// get data user
-$user = "SELECT tickets.*, booking.id as id_booking, booking.price as booking_price FROM booking LEFT JOIN tickets ON tickets.id = booking.id_ticket WHERE booking.id = $id_booking AND tickets.id = $id_ticket";
+function get($conn,int $id_booking, int $id_tiket)
+{
+    $user = "SELECT tickets.*, booking.id as id_booking, booking.price as booking_price FROM booking LEFT JOIN tickets ON tickets.id = booking.id_ticket WHERE booking.id = ? AND tickets.id = ?";
+    $stmt = $conn->prepare($user);
+    $stmt->bind_param('ii',$id_booking,$id_tiket);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $booking = $result->fetch_assoc();
+    return $booking;
+}
 
-$result = $conn->query($user);
-$booking = $result->fetch_assoc()
+// get data user
+$booking = get($conn,$id_booking,$id_ticket);
 ?>
 
     <div class="booking-body">
@@ -29,13 +37,13 @@ $booking = $result->fetch_assoc()
                         <span class="font-field-title">ID Booking</span>
                     </div>
                     <div class="row pb-2">
-                        <span class="font-field"><?php echo $booking['id_booking'];?></span>
+                        <span class="font-field"><?php echo htmlspecialchars($booking['id_booking'],ENT_QUOTES);?></span>
                     </div>
                     <div class="row pb-2 pt-3">
                         <span class="font-field-title">Destinasi</span>
                     </div>
                     <div class="row pb-2">
-                        <span class="font-field"><?php echo $booking['from']." - ".$booking['to'];?></span>
+                        <span class="font-field"><?php echo htmlspecialchars($booking['from'],ENT_QUOTES)." - ".htmlspecialchars($booking['to'],ENT_QUOTES);?></span>
                     </div>
                     <div class="row pb-2 pt-3">
                         <span class="font-field-title">Harga (+PPn)</span>

@@ -32,19 +32,19 @@ if($_SESSION['tipe'] == 'admin'){
                     <span class="font-field-title">Nama Lengkap</span>
                 </div>
                 <div class="row pb-2">
-                    <span class="font-field"><?php echo $user_profile['fullname'];?></span>
+                    <span class="font-field"><?php echo htmlspecialchars($user_profile['fullname'],ENT_QUOTES);?></span>
                 </div>
                 <div class="row pb-2 pt-3">
                     <span class="font-field-title">Email</span>
                 </div>
                 <div class="row pb-2">
-                    <span class="font-field"><?php echo $user_profile['email'];?></span>
+                    <span class="font-field"><?php echo htmlspecialchars($user_profile['email'],ENT_QUOTES);?></span>
                 </div>
                 <div class="row pb-2 pt-3">
                     <span class="font-field-title">Nomor Handphone</span>
                 </div>
                 <div class="row pb-2">
-                    <span class="font-field"><?php echo $user_profile['phone'];?></span>
+                    <span class="font-field"><?php echo htmlspecialchars($user_profile['phone'],ENT_QUOTES);?></span>
                 </div>
             </div>
             <div class="col-md-6">
@@ -52,8 +52,10 @@ if($_SESSION['tipe'] == 'admin'){
                     <span class="font-field-title">Identitas (KTP/SIM/PASSPORT)</span>
                 </div>
                 <div class="center pb-4 pt-4">
-                    <?php if($user_profile['identity_card']){
-                        echo "<img src =".$host."files/".$user_profile['identity_card']." style='width: 180px'>";
+                    <?php 
+                    if($user_profile['identity_card']){
+                        $fullpath = $host.'files/'.$user_profile['identity_card'];
+                        echo "<img src =".$fullpath." style='width: 180px'>";
                     } ?>
                 </div>
             </div>

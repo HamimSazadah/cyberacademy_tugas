@@ -1,6 +1,12 @@
 <?php
 include "header.php";
 include "function/getFeedback.php";
+
+$tipe = @$_SESSION['tipe'];
+if ($tipe != 'users') {
+    header('location:' . $host . 'signin.php');
+    exit;
+}
 ?>
 
 <div class="booking-body">
@@ -28,6 +34,7 @@ include "function/getFeedback.php";
                         <p class="booking-font-field-title">Feedback</p>
                         <p class="booking-font-field"><?php echo $row['feedback']; ?></p>
                     </div>
+                     
                     
                 </div>
         <?php } ?>

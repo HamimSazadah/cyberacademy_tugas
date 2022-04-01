@@ -12,6 +12,13 @@ include "header.php";
                 <div class="form-group" style="width: 100%">
                     <textarea name="feedback"> </textarea>
                 </div>
+                <div class="form-group" style="width: 100%">
+                        <p class="booking-font-field-title">Enter Captcha Image:</p>
+                        <p class="booking-font-field">
+                            <input name="captcha" type="text">
+                            <img src="function/actCaptcha.php" />
+                        </p>
+                </div>
                
             </div>
             <hr class="profile-line"/>
