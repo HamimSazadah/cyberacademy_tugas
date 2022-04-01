@@ -6,6 +6,17 @@
         $email = sanitize(@$_POST['email']);
         $password = sha1(sanitize(@$_POST['password']));
 
+        try {
+            $failAttempt = $redis->get('LOGIN-FAIL-ATTEMPT:'.$email);
+            if ($failAttempt >= 5) {
+                header('Location: '.$host.'adminxyz.php?status=failed-blocked');
+                exit;
+            }
+        } catch (Exception $e) {
+            echo "Redis get failed: ".$e;
+            exit;
+        }
+
         if (isset($_POST['g-recaptcha-response'])) {
             $captcha=$_POST['g-recaptcha-response'];
         }
@@ -37,6 +48,13 @@
                 header('Location: '.$host.'admin.php');
             }
         } else {
+            try {
+                $redis->set('LOGIN-FAIL-ATTEMPT:'.$email, $failAttempt+1, 'EX', 60*30);
+            } catch (Exception $e) {
+                echo "Redis set failed: ".$e;
+                exit;
+            }
+
             header('Location: '.$host.'adminxyz.php?status=failed' );
         }
         $conn->close();
