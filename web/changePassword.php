@@ -5,17 +5,17 @@ include "header.php";
 <div class="profile-body">
     <form action="<?php echo $host;?>function/actChangePassword.php" method="post">
         <div class="profile-card">
-            <div id="notif">
-                <?php if (@$_GET['status'] == 'success') { ?>
-                    <b style="display: block;position: relative;text-align:center; color: rgb(0,200,0)">Sukses ganti password</b>
-                <?php } else if (@$_GET['status'] == 'failed-current') { ?>
-                    <b style="display: block;position: relative;text-align:center; color: rgb(200,0,0)">Password saat ini tidak sesuai</b>
-                <?php } else if (@$_GET['status'] == 'failed-confirm') { ?>
-                    <b style="display: block;position: relative;text-align:center; color: rgb(200,0,0)">Password konfirmasi tidak sesuai</b>
-                <?php } else if (@$_GET['status'] == 'failed-id') { ?>
-                    <b style="display: block;position: relative;text-align:center; color: rgb(200,0,0)">User tidak ditemukan</b>
-                <?php } ?>
-            </div>
+            <div id="notif"></div>
+            <div id="notif"></div>
+            <?php if (@$_GET['status'] == 'success') { ?>
+                <b style="display: block;position: relative;text-align:center; color: rgb(0,200,0)">Sukses ganti password</b>
+            <?php } else if (@$_GET['status'] == 'failed-current') { ?>
+                <b style="display: block;position: relative;text-align:center; color: rgb(200,0,0)">Password saat ini tidak sesuai</b>
+            <?php } else if (@$_GET['status'] == 'failed-confirm') { ?>
+                <b style="display: block;position: relative;text-align:center; color: rgb(200,0,0)">Password konfirmasi tidak sesuai</b>
+            <?php } else if (@$_GET['status'] == 'failed-id') { ?>
+                <b style="display: block;position: relative;text-align:center; color: rgb(200,0,0)">User tidak ditemukan</b>
+            <?php } ?>
 
             <h4>Ganti Password</h4>
             <hr class="profile-line"/>
@@ -63,6 +63,11 @@ include "header.php";
             $('#notif').html('')
         } else {
             $('#notif').html('<b style="display: block;position: relative;text-align:center; color: rgb(200,0,0)">Konfirmasi password tidak sesuai</b>');
+        }
+
+        if (/[a-z]/.test(pass) && /.{12,128}/.test(pass) && /[A-Z]/.test(pass) && /[!@#$~%^&*:,+_]/.test(pass) && /[0-9]/.test(pass)) {
+        } else {
+            $('#notif').html('<b style="display: block;position: relative;text-align:center; color: rgb(200,0,0)">Password harus mengandung Huruf Besar, Huruf kecil, Spesial Char, Angka dan minimal 12 char</b>');
         }
     })
 </script>
