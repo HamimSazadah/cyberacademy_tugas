@@ -13,7 +13,7 @@ if (!empty($_POST) && $_SESSION['csrf'] == $_POST['csrf']) {
         exit;
     }
 
-     if ((bool)preg_match('/[a-z]/',$p) && (bool)preg_match('/.{12,128}/',$p) && (bool)preg_match('/[A-Z]/',$p) && (bool)preg_match('/[!@#$~%^&*:,+_]/',$p) && (bool)preg_match('/[0-9]/',$p)) {
+     if (!((bool)preg_match('/[a-z]/',$p) && (bool)preg_match('/.{12,128}/',$p) && (bool)preg_match('/[A-Z]/',$p) && (bool)preg_match('/[!@#$~%^&*:,+_]/',$p) && (bool)preg_match('/[0-9]/',$p))) {
         header('location:' . $host . 'signup.php?status=password');
         exit;
     }

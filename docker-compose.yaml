@@ -10,18 +10,6 @@ services:
       - 6379:6379
     volumes:
       - ./redis:/var/lib/redis/data
-  mysql:
-    image: mysql:latest
-    container_name: mysql
-    volumes:
-      - ./mysql:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: password1
-      MYSQL_USER: user_tiket
-      MYSQL_PASSWORD: Tiket@12ed
-      MYSQL_DATABASE: tiket
-    ports:
-      - 3309:3306
   mariadb:
     container_name: mariadb
     image: mariadb:10.5
@@ -38,6 +26,7 @@ services:
     volumes:
       - ./web:/var/www/html
     environment:
+      APP_ENV: production
       DB_HOST: mariadb
       DB_USER: root
       DB_PASS: leomessi
