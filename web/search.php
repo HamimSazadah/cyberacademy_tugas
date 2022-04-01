@@ -2,10 +2,7 @@
 include "header.php";
 
 $id_booking = filter_var(@$_GET['IDBOOKING'],FILTER_SANITIZE_NUMBER_INT);
-echo $id_booking;
 
-
-    
 // get data user
 $ticket = "SELECT tickets.*, booking.id as id_booking, booking.price as booking_price, booking.id_user, user_profile.fullname FROM booking LEFT JOIN user_profile ON user_profile.id_user = booking.id_user LEFT JOIN tickets ON tickets.id = booking.id_ticket  WHERE booking.id = $id_booking";
 

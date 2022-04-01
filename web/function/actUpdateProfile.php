@@ -4,15 +4,16 @@ use Predis\Client;
 
 include "../conn.php";
 include "FloodDetection.php";
+include "security.php";
 
 @session_start();
 
 $flood = new FloodDetection();
 $flood->check();
+$fullname = sanitize(@$_POST['fullname']);
+$email = filter_var(@$_POST['email'],FILTER_SANITIZE_EMAIL);
 
 $id = @$_SESSION['id'];
-$fullname = htmlspecialchars(@$_POST['fullname'],ENT_QUOTES);
-$email = filter_var(@$_POST['email'],FILTER_SANITIZE_EMAIL);
 $phone = 0;
 
 if(@$_POST['phone'] != '' || @$_POST['phone'] != null){
@@ -35,7 +36,7 @@ $newfilename=getOldIdentity($conn);
 if ($fileName) {
     if (!in_array($fileType,$allowed_types)){
         echo "File gagal diupload.";
-        exit();
+        exit;
     }
     $oldIdentity = $namaDir.$newfilename;
     unlink($oldIdentity);
