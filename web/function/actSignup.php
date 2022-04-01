@@ -5,8 +5,20 @@ include "security.php";
 if (!empty($_POST) && $_SESSION['csrf'] == $_POST['csrf']) { 
     $fullname = sanitize(@$_POST['fullname']);
     $email    = sanitize(@$_POST['email']);
+    $p = $_POST['password'];
     $password  = sha1(sanitize(@$_POST['password']) . $email . getenv('SALT'));
 
+    if(!((bool) preg_match('/[\w\.]+@\w+\.\w+\.?\w+/',$email))){
+        header('location:' . $host . 'signup.php?status=email');
+        exit;
+    }
+
+     if ((bool)preg_match('/[a-z]/',$p) && (bool)preg_match('/.{12,128}/',$p) && (bool)preg_match('/[A-Z]/',$p) && (bool)preg_match('/[!@#$~%^&*:,+_]/',$p) && (bool)preg_match('/[0-9]/',$p)) {
+        header('location:' . $host . 'signup.php?status=password');
+        exit;
+    }
+
+    // cek captcha
     if (isset($_POST['g-recaptcha-response'])) {
         $captcha=$_POST['g-recaptcha-response'];
     }

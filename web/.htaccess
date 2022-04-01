@@ -1,0 +1,4 @@
+Header set X-Frame-Options SAMEORIGIN
+
+RewriteCond %{HTTPS} off
+RewriteRule (.*)$ https://%{HTTP_HOST}%{REQUEST_URI}
