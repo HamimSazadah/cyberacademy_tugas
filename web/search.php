@@ -1,7 +1,8 @@
 <?php
 include "header.php";
 
-$id_booking = @$_GET['IDBOOKING'];
+$id_booking = filter_var(@$_GET['IDBOOKING'],FILTER_SANITIZE_NUMBER_INT);
+echo $id_booking;
 
 
     
@@ -51,7 +52,9 @@ $result = $conn->query($ticket);
 
                     </div>
             </div>
-            <?php $no++; }  } ?>
+            <?php $no++; }  }else{
+                echo 'not found';
+            } ?>
           
         </div>
        
