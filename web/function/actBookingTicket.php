@@ -9,6 +9,12 @@
 
     $id_user = @$_SESSION['id'];
 
+    if (!empty($_POST) && $_SESSION['csrf'] != $_POST['csrf']) { 
+        $_SESSION['csrf'] =  bin2hex(random_bytes(35));
+        echo 'gagal';
+        exit;
+    }
+
     $submit = @$_POST['submit'];
     $identity = (int)$submit[0];
 

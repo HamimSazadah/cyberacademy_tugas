@@ -58,7 +58,7 @@ class FloodDetection {
             exit ();
         }
 
-        $this->redis->set ( "floodControl", microtime ( true ) );
+        $this->redis->set ( "floodControl", microtime ( true ));
         $this->redis->set ( $ipKey, microtime ( true ) );
     }
 

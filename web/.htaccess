@@ -1,8 +1,8 @@
-Header set X-Frame-Options SAMEORIGIN
-Header set X-Content-Type-Options nosniff
-Header set Referrer-Policy no-referrer
-Header set Strict-Transport-Security maxage=15724800
+#Header set X-Frame-Options SAMEORIGIN
+#Header set X-Content-Type-Options nosniff
+#Header set Referrer-Policy no-referrer
+#Header set Strict-Transport-Security maxage=15724800
 # RewriteCond %{HTTPS} off
 # RewriteRule (.*)$ https://%{HTTP_HOST}%{REQUEST_URI}
 
-Header add Content-Security-Policy "default-src 'self' https://fonts.googleapis.com https://www.google.com https://www.gstatic.com https://fonts.gstatic.com 'unsafe-inline' 
+#Header add Content-Security-Policy "default-src 'self' https://fonts.googleapis.com https://www.google.com https://www.gstatic.com https://fonts.gstatic.com 'unsafe-inline' 
