@@ -9,6 +9,12 @@
 
     $id_user = @$_SESSION['id'];
 
+    if (!empty($_POST) && $_SESSION['csrf'] != $_POST['csrf']) { 
+        $_SESSION['csrf'] =  bin2hex(random_bytes(35));
+        echo 'gagal';
+        exit;
+    }
+
     $submit = @$_POST['submit'];
     $identity = (int)$submit[0];
 
@@ -21,6 +27,11 @@
 
     $cek = check($conn,$id_ticket);
     if ( $cek == null){
+        header('Location: '.$host.'tickets.php?status=seatsFailed' );
+        exit;
+    }
+
+    if ($cek["seats"] <= 0){
         header('Location: '.$host.'tickets.php?status=seatsFailed' );
         exit;
     }

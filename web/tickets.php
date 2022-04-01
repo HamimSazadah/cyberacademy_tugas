@@ -28,6 +28,7 @@ if ($tipe != 'users') {
             ?>
             <div class="col">
                 <form action="<?php echo $host;?>function/actBookingTicket.php" method="POST">
+                <input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>">
                     <div class="card cards-shadown cards-hover">
                         <div class="card-header">
                             <div class="cardheader-text">

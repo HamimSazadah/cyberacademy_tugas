@@ -3,7 +3,6 @@ services:
   redis:
     container_name: redis
     image: telkomindonesia/alpine:redis-5.0
-    container_name: redis
     environment:
       REDIS_PASSWORD: 1231easdc
     restart: always
@@ -14,7 +13,6 @@ services:
   mariadb:
     container_name: mariadb
     image: mariadb:10.5
-    container_name: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: leomessi
       MYSQL_DATABASE: tiket
@@ -40,8 +38,5 @@ services:
       RECAPTCHA_SECRET_KEY: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
       SALT: e545d2da-97eb-4f1a-a641-5a9ec4d19861
       HOST: http://localhost:8080/
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      REDIS_PASSWORD: 1231easdc
     ports:
       - 8080:8080
