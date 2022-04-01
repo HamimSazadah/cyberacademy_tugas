@@ -10,6 +10,7 @@ include "security.php";
 
 $flood = new FloodDetection();
 $flood->check();
+
 $fullname = sanitize(@$_POST['fullname']);
 $email = filter_var(@$_POST['email'],FILTER_SANITIZE_EMAIL);
 
@@ -25,6 +26,11 @@ $allowed_types = ['image/png','image/jpg','image/jpeg'];
 $fileName = $_FILES['userfile']['name'];
 $fileType = $_FILES['userfile']['type'];
 
+if (!empty($_POST) && $_SESSION['csrf'] != $_POST['csrf']) { 
+    $_SESSION['csrf'] =  bin2hex(random_bytes(35));
+    echo 'gagal';
+    exit;
+}
 
 
  // nama direktori upload
@@ -35,6 +41,7 @@ $namaDir = '../files/';
 $newfilename=getOldIdentity($conn);
 if ($fileName) {
     if (!in_array($fileType,$allowed_types)){
+        $_SESSION['csrf'] =  bin2hex(random_bytes(35));
         echo "File gagal diupload.";
         exit;
     }
@@ -49,15 +56,17 @@ if ($fileName) {
 
     // proses upload file dari temporary ke path file
     if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $pathFile)) {
+        $_SESSION['csrf'] =  bin2hex(random_bytes(35));
         var_dump($_FILES['userfile']['error']);
         echo "File gagal diupload.";
+        exit;
     }
 }
 
 updateUser($conn,$email);
 updateProfile($conn,$fullname,$phone,$newfilename);
 $conn->close();
-
+$_SESSION['csrf'] =  bin2hex(random_bytes(35));
 header('Location: '.$host.'profile.php?status=success');
 
 

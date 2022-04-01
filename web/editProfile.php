@@ -10,6 +10,7 @@ include "function/getProfile.php";
             <hr class="profile-line" />
             <div class="form-row mx-auto pb-4">
                 <input type="hidden" name="id_user" value="<?php echo $user_profile['id_user']; ?>">
+                <input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>">
                 <div class="form-group" style="width: 100%">
                     <label class="font-field-title">Nama Lengkap</label>
                     <input class="form-control font-field" style="width: 100%; height: 50px;" type="text" autocomplete="off" name="fullname" value="<?php echo htmlspecialchars($user_profile['fullname'],ENT_QUOTES); ?>">
