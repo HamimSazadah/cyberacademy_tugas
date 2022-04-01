@@ -14,6 +14,12 @@ include "header.php";
             case 'csrf':
                 echo '<b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Error CSRF</b>';
                 break;
+            case 'email':
+                echo '<b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Error Email tidak valid</b>';
+                break;
+            case 'password':
+                echo '<b style="display: block;position: relative;text-align:center; color: rgb(244,71,107)">Error password tidak valid</b>';
+                break;
         }
         ?>
 
@@ -26,18 +32,25 @@ include "header.php";
         <div class="form-group"><input class="form-control" type="password"  id='password2' placeholder="Confirm Password"></div>
         <div class="form-group"><input type="checkbox" onclick="showPassword($(this).prop('checked'))"> Lihat Password</div>
         <div class="form-group">
-            <div class="g-recaptcha" data-sitekey="<?php echo getenv('RECAPTCHA_SITE_KEY') ?>"></div>
+            <div class="g-recaptcha" data-sitekey="<?=getenv('RECAPTCHA_SITE_KEY') ?>"></div>
             <div class="form-group"><button id='submit' class="btn btn-primary btn-block" type="submit" disabled>Sign Up</button></div>
             <a class="forgot" href="#">Forgot your email or password?</a>
     </form>
 </div>
 <script src="assets/js/jquery.min.js"></script>
 <script>
+     $('#email').change(() => {
+        pass = $('#email').val()
+        if (/[\w\.]+@\w+\.\w+\.?\w+/.test(pass)) {
+            $('#notif').text('')
+        } else {
+            $('#notif').text('Email tidak valid');
+        }
+    })
     $('#password').change(() => {
         pass = $('#password').val()
         if (/[a-z]/.test(pass) && /.{12,128}/.test(pass) && /[A-Z]/.test(pass) && /[!@#$~%^&*:,+_]/.test(pass) && /[0-9]/.test(pass)) {
             $('#notif').text('')
-            console.log('ok!')
         } else {
             $('#notif').text('Password harus mengandung Huruf Besar, Huruf kecil, Spesial Char, Angka dan minimal 12 char');
         }
