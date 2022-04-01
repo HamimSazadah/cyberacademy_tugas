@@ -31,6 +31,11 @@
         exit;
     }
 
+    if ($cek["seats"] <= 0){
+        header('Location: '.$host.'tickets.php?status=seatsFailed' );
+        exit;
+    }
+
     $seats = $cek['seats'];
     $price = $cek['price'];
     //Get the result.
