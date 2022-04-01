@@ -39,4 +39,3 @@ header("Cache-Control: no-cache, must-revalidate");
 header('Content-type: image/png');
 imagepng($im);
 imagedestroy($im);
-?>
