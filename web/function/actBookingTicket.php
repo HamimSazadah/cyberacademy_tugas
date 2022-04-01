@@ -27,11 +27,7 @@
 
     $cek = check($conn,$id_ticket);
     if ( $cek == null){
-        header('Location: '.$host.'tickets.php?status=seatsFailed' );
-        exit;
-    }
-
-    if ($cek["seats"] <= 0){
+        $_SESSION['csrf'] =  bin2hex(random_bytes(35));
         header('Location: '.$host.'tickets.php?status=seatsFailed' );
         exit;
     }
@@ -46,6 +42,7 @@
 
     // jika kursi 0
     if($seats < 1){
+        $_SESSION['csrf'] =  bin2hex(random_bytes(35));
         header('Location: '.$host.'tickets.php?status=seatsFailed' );
         exit;
     }
@@ -57,13 +54,15 @@
     if($insertedBooking){
         $updated_ticket = updateTicket($conn,$cek['id']);
         if ($updated_ticket){
+            $_SESSION['csrf'] =  bin2hex(random_bytes(35));
             header('Location: '.$host.'myBookings.php?status=success');
         }else{
+            $_SESSION['csrf'] =  bin2hex(random_bytes(35));
             echo("Gagal update tiket");
             exit;
         }
-
     }else{
+        $_SESSION['csrf'] =  bin2hex(random_bytes(35));
         echo("Gagal booking");
     }
     // if ($conn->query($sql) === TRUE) {

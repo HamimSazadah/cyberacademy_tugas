@@ -48,12 +48,14 @@ class FloodDetection {
         $limitProcess = isset ( $this->timeLimitProcess [$action] ) ? $this->timeLimitProcess [$action] : $this->timeLimitProcess ['DEFAULT'];
 
         if ((microtime ( true ) - $iptime) < $limitUser) {
+            $_SESSION['csrf'] =  bin2hex(random_bytes(35));
             print ("Die! Die! Die! $ip") ;
             exit ();
         }
 
         // Limit All request
         if ((microtime ( true ) - $runtime) < $limitProcess) {
+            $_SESSION['csrf'] =  bin2hex(random_bytes(35));
             print ("All of you Die! Die! Die! $ip") ;
             exit ();
         }
