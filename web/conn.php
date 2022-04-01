@@ -22,7 +22,12 @@ try {
 
 $host = getenv('HOST');
 
-error_reporting(E_ALL);
+if(getenv('APP_ENV')=='production'){
+    error_reporting(0);
+}else{
+    error_reporting(E_ALL);
+}
+
 
 
 ?>
